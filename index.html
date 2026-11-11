@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Atendimento</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🎫</span>
+      <div>
+        <h1>Controle de Atendimento</h1>
+        <small>Registo de Ordens de Serviço</small>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="ordens">Ordens de Serviço</button>
+    <button class="tab" data-tab="clientes">Clientes</button>
+    <button class="tab" data-tab="tecnicos">Técnicos</button>
+  </nav>
+
+  <main>
+    <!-- ORDENS DE SERVIÇO -->
+    <section id="tab-ordens" class="panel active">
+      <div class="stats" id="stats"></div>
+
+      <form id="form-ordem" class="card form">
+        <h2 id="form-ordem-title">Nova Ordem de Serviço</h2>
+        <input type="hidden" id="os-id">
+        <div class="grid">
+          <label>Cliente
+            <select id="os-cliente" required></select>
+          </label>
+          <label>Técnico
+            <select id="os-tecnico" required></select>
+          </label>
+          <label>Data
+            <input type="date" id="os-data" required>
+          </label>
+          <label>Status
+            <select id="os-status" required>
+              <option>Aberta</option>
+              <option>Em Atendimento</option>
+              <option>Concluída</option>
+            </select>
+          </label>
+          <label class="full">Descrição
+            <input type="text" id="os-descricao" maxlength="100" required
+              placeholder="Descreva o problema (máx. 100 caracteres)">
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary" id="os-submit">Registar</button>
+          <button type="button" class="btn" id="os-cancel" hidden>Cancelar edição</button>
+        </div>
+      </form>
+
+      <div class="card">
+        <div class="toolbar">
+          <h2>Ordens registadas</h2>
+          <div class="filters">
+            <input type="search" id="filtro-texto" placeholder="Pesquisar...">
+            <select id="filtro-status">
+              <option value="">Todos os status</option>
+              <option>Aberta</option>
+              <option>Em Atendimento</option>
+              <option>Concluída</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Técnico</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-ordens"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="tab-clientes" class="panel">
+      <form id="form-cliente" class="card form">
+        <h2>Novo Cliente</h2>
+        <input type="hidden" id="cli-id">
+        <div class="grid">
+          <label>Nome
+            <input type="text" id="cli-nome" maxlength="100" required>
+          </label>
+          <label>CPF
+            <input type="text" id="cli-cpf" required placeholder="Apenas números" inputmode="numeric" pattern="\d{11}"
+              maxlength="11" title="11 dígitos">
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Guardar</button>
+          <button type="button" class="btn cancel" hidden>Cancelar edição</button>
+        </div>
+      </form>
+      <div class="card">
+        <h2>Clientes</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-clientes"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÉCNICOS -->
+    <section id="tab-tecnicos" class="panel">
+      <form id="form-tecnico" class="card form">
+        <h2>Novo Técnico</h2>
+        <input type="hidden" id="tec-id">
+        <div class="grid">
+          <label>Nome
+            <input type="text" id="tec-nome" maxlength="100" required>
+          </label>
+          <label>Especialidade
+            <input type="text" id="tec-especialidade" maxlength="50" required>
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Guardar</button>
+          <button type="button" class="btn cancel" hidden>Cancelar edição</button>
+        </div>
+      </form>
+      <div class="card">
+        <h2>Técnicos</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Especialidade</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-tecnicos"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
